@@ -8,21 +8,29 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class,webEnvironment = WebEnvironment.RANDOM_PORT)
+
 public class AdditionTest {
 
-  private static final String additionURL = "http://localhost:8080/addition";
+  @LocalServerPort
+  private int port;
+
   private static JSONObject numbersJsonObject;
   private static HttpHeaders headers;
   private final ObjectMapper objectMapper = new ObjectMapper();
@@ -45,17 +53,17 @@ public class AdditionTest {
   @Test
   public void testAddition() throws IOException {
     HttpEntity<String> request = new HttpEntity<>(numbersJsonObject.toString(), headers);
-    String response = restTemplate.postForObject(additionURL, request, String.class);
+    String response = restTemplate.postForObject("http://localhost:"+port+"/addition", request, String.class);
 
     JsonNode root = objectMapper.readTree(response);
-    ResultPojo resultPojo = restTemplate.postForObject(additionURL, request, ResultPojo.class);
+      ResultPojo resultPojo = restTemplate.postForObject("http://localhost:"+port+"/addition", request, ResultPojo.class);
 
     assertNotNull(response);
     assertNotNull(root);
     assertNotNull(root.path("result").asText());
 
     assertNotNull(resultPojo);
-    assertNotNull(resultPojo.getResult());
+    assertEquals(8, resultPojo.getResult());
 
   }
 

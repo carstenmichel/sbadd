@@ -2,17 +2,21 @@ package addition;
 
 public class ResultPojo {
 
-  int result = 0;
+  long result = 0;
 
-  public ResultPojo(int result) {
+  public ResultPojo(long result) {
     this.result = result;
   }
 
-  public int getResult() {
+  public ResultPojo() {
+    super();
+  }
+
+  public long getResult() {
     return result;
   }
 
-  public void setResult(int result) {
+  public void setResult(long result) {
     this.result = result;
   }
 }
