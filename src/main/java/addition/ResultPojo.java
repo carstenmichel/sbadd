@@ -5,6 +5,7 @@ public class ResultPojo {
   long result = 0;
 
   public ResultPojo(long result) {
+    super();
     this.result = result;
   }
 
