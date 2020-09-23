@@ -30,3 +30,4 @@ build/
 .classpath
 .idea/
 target/
+bin/
