@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/carstenmichel/sbadd.svg?branch=master)](https://travis-ci.org/carstenmichel/sbadd)
+
+
+
 # sbadd
 Rest Service with Spring boot to add 2 numbers
 
