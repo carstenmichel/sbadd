@@ -12,6 +12,7 @@ after_success:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
   - docker tag add_two_numbers $DOCKER_USER_NAME/add_two_numbers:$TRAVIS_BUILD_NUMBER
   - docker tag add_two_numbers $DOCKER_USER_NAME/add_two_numbers:latest
+  - docker images
   - docker push $DOCKER_USER/add_two_numbers:latest
 
 
