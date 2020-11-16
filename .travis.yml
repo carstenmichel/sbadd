@@ -10,8 +10,8 @@ script:
   - docker build -t add_two_numbers .
 after_success:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
-  - docker tag sbadd $DOCKER_USER_NAME/add_two_numbers:$TRAVIS_BUILD_NUMBER
-  - docker tag sbadd $DOCKER_USER_NAME/add_two_numbers:latest
+  - docker tag add_two_numbers $DOCKER_USER_NAME/add_two_numbers:$TRAVIS_BUILD_NUMBER
+  - docker tag add_two_numbers $DOCKER_USER_NAME/add_two_numbers:latest
   - docker push $DOCKER_USER/add_two_numbers:latest
 
 
