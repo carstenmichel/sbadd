@@ -4,8 +4,15 @@ os: linux
 dist: focal
 services:
 - docker
-after_script:
-- docker build -t carstenmichel/sbadd:latest .
+
+script: 
+  - mvn package
+  - docker build -t sbadd .
+after_success:
+  - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
+  - docker tag sbadd $DOCKER_USER_NAME/sbadd:$TRAVIS_BUILD_NUMBER
+  - docker tag sbadd $DOCKER_USER_NAME/sbadd:latest
+  - docker push $DOCKER_USER/back:latest
 
 
 env:
