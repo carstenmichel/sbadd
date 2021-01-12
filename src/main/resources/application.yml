@@ -2,3 +2,17 @@ logging:
     level:
         root: info
         addition: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - "prometheus"
+        - "health"
+        - "info"
+        - "metric"
+  endpoint:
+    shutdown:
+      enabled: false
+
